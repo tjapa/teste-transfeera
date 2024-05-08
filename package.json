@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/main/server.js",
+    "start": "node dist/src/main/server.js",
     "build": "tsc -p tsconfig.json",
     "build:watch": "tsc -w",
     "dev": "npm run build && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"npm:build:watch\" \"npm:dev:start\"",
-    "dev:start": "node --watch-path=./dist dist/main/server.js",
+    "dev:start": "node --watch-path=./dist dist/src/main/server.js",
     "db:generate-migrations": "drizzle-kit generate:pg",
     "db:migrate": "ts-node --skipProject drizzle/migrate.ts",
     "prepare": "husky",
@@ -53,6 +53,7 @@
   "license": "ISC",
   "description": "",
   "_moduleAliases": {
-    "@": "dist"
+    "@/tests": "dist/tests",
+    "@": "dist/src"
   }
 }
