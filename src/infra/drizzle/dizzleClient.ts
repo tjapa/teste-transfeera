@@ -10,3 +10,7 @@ export const sql = postgres(env.postgresDbUrl, {
 export const drizzleClient = drizzle(sql, {
   schema,
 })
+
+export const disconnect = async () => {
+  sql.end()
+}
