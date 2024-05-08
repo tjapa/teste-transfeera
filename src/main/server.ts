@@ -1,6 +1,5 @@
-import express from 'express'
-
-const app = express()
+import 'module-alias/register'
+import app from './config/app'
 
 const PORT = 3000
 
