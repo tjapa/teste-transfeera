@@ -6,15 +6,13 @@
     "outDir": "dist",
     "module": "commonjs",
     "target": "es2016",
+    "rootDirs": ["src", "tests"],
     "baseUrl": "src",
     "paths": {
-      "@/*": [
-        "*"
-      ]
+      "@/*": ["*"],
+      "@/tests/*": ["../tests/*"]
     }
   },
-  "include": [
-    "src"
-  ],
+  "include": ["src"],
   "exclude": []
 }
