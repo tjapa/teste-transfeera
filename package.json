@@ -8,6 +8,8 @@
     "build:watch": "tsc -w",
     "dev": "npm run build && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"npm:build:watch\" \"npm:dev:start\"",
     "dev:start": "node --watch-path=./dist dist/main/server.js",
+    "db:generate-migrations": "drizzle-kit generate:pg",
+    "db:migrate": "ts-node --skipProject drizzle/migrate.ts",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -18,13 +20,21 @@
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
+    "ts-node": "^10.9.2",
     "typescript-eslint": "^7.8.0"
   },
   "dependencies": {
+    "@sinclair/typebox": "^0.32.29",
     "@types/express": "^4.17.21",
+    "@types/uuid": "^9.0.8",
+    "dotenv": "^16.4.5",
+    "drizzle-kit": "^0.20.18",
+    "drizzle-orm": "^0.30.10",
     "express": "^4.19.2",
     "module-alias": "^2.2.3",
-    "typescript": "^5.4.5"
+    "postgres": "^3.4.4",
+    "typescript": "^5.4.5",
+    "uuid": "^9.0.1"
   },
   "keywords": [],
   "author": "",

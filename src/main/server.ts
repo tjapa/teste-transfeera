@@ -1,8 +1,7 @@
 import 'module-alias/register'
 import app from './config/app'
+import { env } from './config/env'
 
-const PORT = 3000
-
-app.listen(3000, () => {
-  console.log(`Server running at http://localhost:${PORT}`)
+app.listen(env.port, () => {
+  console.log(`Server running at http://localhost:${env.port}`)
 })
