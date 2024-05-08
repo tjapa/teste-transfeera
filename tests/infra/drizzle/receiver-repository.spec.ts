@@ -1,6 +1,6 @@
-import { disconnect, drizzleClient } from '@/infra/drizzle/dizzleClient'
-import { ReceiverRepository } from '@/infra/drizzle/receiver-repository'
-import { receivers } from '@/infra/drizzle/schemas'
+import { disconnect, drizzleClient } from '@/infra/db/drizzle/dizzleClient'
+import { ReceiverRepository } from '@/infra/db/drizzle/receiver-repository'
+import { receivers } from '@/infra/db/drizzle/schemas'
 import { mockReceiver } from '@/tests/domain/mock/mockReceiver'
 
 describe('Receiver Repository', () => {
