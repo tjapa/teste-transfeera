@@ -10,7 +10,7 @@ export class CreateReceiver implements CreateReceiverUseCase {
   constructor(
     private readonly createReceiverRepository: CreateReceiverRepository,
     private readonly idGenerator: IdGenerator,
-  ) {}
+  ) { }
 
   async create(
     createReceiverParams: CreateReceiverParams,
@@ -20,7 +20,7 @@ export class CreateReceiver implements CreateReceiverUseCase {
       id: this.idGenerator.generate(),
       status: ReceiverStatus.RASCUNHO,
     }
-    const receiverCreated = this.createReceiverRepository.create(receiver)
+    const receiverCreated = await this.createReceiverRepository.create(receiver)
     return receiverCreated
   }
 }
