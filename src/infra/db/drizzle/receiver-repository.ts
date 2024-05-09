@@ -1,10 +1,9 @@
-import {
-  PixKeyType,
-  ReceiverModel,
-  ReceiverStatus,
-} from '@/use-cases/models/receiver'
+import { ReceiverModel } from '@/use-cases/models/receiver'
 import { CreateReceiverRepository } from '@/repository/protocols/create-receiver-repository'
-import { GetReceiversRepository } from '@/repository/protocols/get-receivers.repository'
+import {
+  FiltersGetReceivers,
+  GetReceiversRepository,
+} from '@/repository/protocols/get-receivers-repository'
 import { drizzleClient } from './dizzleClient'
 import { receivers } from './schemas'
 import { and, eq } from 'drizzle-orm'
@@ -18,13 +17,7 @@ export class ReceiverRepository
     )[0]
   }
 
-  async getReceivers(filters?: {
-    offset?: number | undefined
-    status?: ReceiverStatus | undefined
-    name?: string | undefined
-    pixKeyType?: PixKeyType | undefined
-    pixKey?: string | undefined
-  }): Promise<ReceiverModel[]> {
+  async getReceivers(filters?: FiltersGetReceivers): Promise<ReceiverModel[]> {
     const wheres = []
 
     if (filters?.pixKey) wheres.push(eq(receivers.pixKey, filters?.pixKey))
