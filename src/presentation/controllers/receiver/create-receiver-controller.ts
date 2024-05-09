@@ -19,7 +19,7 @@ export class CreateReceiverController implements Controller {
   constructor(
     private readonly createReceiver: CreateReceiverUseCase,
     private readonly validator: Validator<CreateReceiverRequest>,
-  ) { }
+  ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     let createReceiverRequest: CreateReceiverRequest
@@ -27,7 +27,6 @@ export class CreateReceiverController implements Controller {
     try {
       createReceiverRequest = this.validator.validate(httpRequest.body)
     } catch (error) {
-      console.log(error)
       return forbidden(error as Error)
     }
 
@@ -46,11 +45,11 @@ export class CreateReceiverController implements Controller {
         pix_key_type: receiver.pixKeyType,
         pix_key: receiver.pixKey,
         email: receiver.email,
-        name: receiver.email,
+        name: receiver.name,
         register_id: receiver.registerId,
+        status: receiver.status,
       })
     } catch (error) {
-      console.log(error)
       return serverError()
     }
   }
