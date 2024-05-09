@@ -1,6 +1,6 @@
-import { ReceiverModel } from '@/domain/models/receiver'
+import { ReceiverModel } from '@/use-cases/models/receiver'
 import { faker } from '@faker-js/faker'
-import { CreateReceiverParams } from '@/domain/protocols/create-receiver-use-case'
+import { CreateReceiverParams } from '@/use-cases/protocols/create-receiver-use-case'
 
 export const mockReceiver = (): ReceiverModel => ({
   id: faker.string.uuid(),

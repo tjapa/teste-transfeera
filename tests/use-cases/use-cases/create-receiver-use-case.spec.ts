@@ -1,12 +1,12 @@
-import { mockCreateReceiverParams } from '@/tests/domain/mocks/mock-receiver'
-import { CreateReceiverUseCase } from '@/domain/protocols/create-receiver-use-case'
-import { CreateReceiver } from '@/domain/use-cases/create-receiver-use-case'
-import { IdGenerator } from '@/domain/protocols/id-generator'
+import { mockCreateReceiverParams } from '@/tests/use-cases/mocks/mock-receiver'
+import { CreateReceiverUseCase } from '@/use-cases/protocols/create-receiver-use-case'
+import { CreateReceiver } from '@/use-cases/use-cases/create-receiver-use-case'
+import { IdGenerator } from '@/use-cases/protocols/id-generator'
 import { CreateReceiverRepository } from '@/repository/protocols/create-receiver-repository'
 import { mockCreateReceiverRepository } from '@/tests/repository/mocks/mock-create-receiver-repository'
-import { mockIdGenerator } from '@/tests/domain/mocks/mock-id-generator'
+import { mockIdGenerator } from '@/tests/use-cases/mocks/mock-id-generator'
 import { throwError } from '@/tests/helpers/throw-error'
-import { ReceiverStatus } from '@/domain/models/receiver'
+import { ReceiverStatus } from '@/use-cases/models/receiver'
 
 interface SutType {
   sut: CreateReceiverUseCase

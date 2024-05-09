@@ -1,12 +1,12 @@
 import { CreateReceiverController } from '@/presentation/controllers/receiver/create-receiver-controller'
-import { CreateReceiverUseCase } from '@/domain/protocols/create-receiver-use-case'
+import { CreateReceiverUseCase } from '@/use-cases/protocols/create-receiver-use-case'
 import { CreateReceiverRequest } from '@/presentation/models/create-receiver-request'
 import { Validator } from '@/presentation/protocols'
 import { mockCreateReceiverRequestValidator } from '@/tests/validation/mocks/mock-create-receiver-request-validator'
-import { mockCreateReceiverUseCase } from '@/tests/domain/mocks/mock-create-receiver-use-case'
+import { mockCreateReceiverUseCase } from '@/tests/use-cases/mocks/mock-create-receiver-use-case'
 import { mockCreateReceiverRequestCPF } from '../mocks/create-receiver-request-mocks'
 import { throwError } from '@/tests/helpers/throw-error'
-import { mockCreateReceiverParams } from '@/tests/domain/mocks/mock-receiver'
+import { mockCreateReceiverParams } from '@/tests/use-cases/mocks/mock-receiver'
 
 interface SutType {
   sut: CreateReceiverController

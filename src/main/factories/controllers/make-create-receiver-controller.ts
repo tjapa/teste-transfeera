@@ -1,4 +1,4 @@
-import { CreateReceiver } from '@/domain/use-cases/create-receiver-use-case'
+import { CreateReceiver } from '@/use-cases/use-cases/create-receiver-use-case'
 import { ReceiverRepository } from '@/infra/db/drizzle/receiver-repository'
 import { UuidAdapter } from '@/infra/uuid/uuid-adapter'
 import { CreateReceiverController } from '@/presentation/controllers/receiver/create-receiver-controller'

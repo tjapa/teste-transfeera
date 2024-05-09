@@ -1,4 +1,4 @@
-import { ReceiverModel } from '@/domain/models/receiver'
+import { ReceiverModel } from '@/use-cases/models/receiver'
 
 export interface CreateReceiverUseCase {
   create: (createReceiverParams: CreateReceiverParams) => Promise<ReceiverModel>

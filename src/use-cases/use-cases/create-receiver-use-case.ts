@@ -1,5 +1,5 @@
 import { CreateReceiverRepository } from '@/repository/protocols/create-receiver-repository'
-import { ReceiverModel, ReceiverStatus } from '@/domain/models/receiver'
+import { ReceiverModel, ReceiverStatus } from '@/use-cases/models/receiver'
 import {
   CreateReceiverParams,
   CreateReceiverUseCase,

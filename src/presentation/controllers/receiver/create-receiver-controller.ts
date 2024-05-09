@@ -13,7 +13,7 @@ import {
 import {
   CreateReceiverUseCase,
   CreateReceiverParams,
-} from '@/domain/protocols/create-receiver-use-case'
+} from '@/use-cases/protocols/create-receiver-use-case'
 
 export class CreateReceiverController implements Controller {
   constructor(

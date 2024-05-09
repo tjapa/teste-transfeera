@@ -1,4 +1,4 @@
-import { ReceiverModel } from '@/domain/models/receiver'
+import { ReceiverModel } from '@/use-cases/models/receiver'
 import { CreateReceiverRepository } from '@/repository/protocols/create-receiver-repository'
 import { drizzleClient } from './dizzleClient'
 import { receivers } from './schemas'

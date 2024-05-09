@@ -1,8 +1,8 @@
 import {
   CreateReceiverParams,
   CreateReceiverUseCase,
-} from '@/domain/protocols/create-receiver-use-case'
-import { ReceiverModel } from '@/domain/models/receiver'
+} from '@/use-cases/protocols/create-receiver-use-case'
+import { ReceiverModel } from '@/use-cases/models/receiver'
 import { mockReceiver } from './mock-receiver'
 
 export const mockCreateReceiverUseCase = (): CreateReceiverUseCase => {
