@@ -34,7 +34,7 @@ describe('Create Receiver Use Case', () => {
       const id = 'any_id'
       const receiver = {
         ...createReceiverParams,
-        status: ReceiverStatus.RASCUNHO,
+        status: 'RASCUNHO' as ReceiverStatus,
         id,
       }
       jest.spyOn(idGeneratorStub, 'generate').mockReturnValueOnce(id)
@@ -42,7 +42,7 @@ describe('Create Receiver Use Case', () => {
         .spyOn(createReceiverRepositoryStub, 'create')
         .mockReturnValueOnce(Promise.resolve(receiver))
       const receiverCreated = await sut.create(createReceiverParams)
-      expect(receiverCreated.status).toBe(ReceiverStatus.RASCUNHO)
+      expect(receiverCreated.status).toBe('RASCUNHO')
       expect(receiverCreated.id).toBe(id)
       expect(receiverCreated.name).toBe(receiver.name)
       expect(receiverCreated.pixKey).toBe(receiver.pixKey)
@@ -61,7 +61,7 @@ describe('Create Receiver Use Case', () => {
       const createReceiverParams = mockCreateReceiverParams()
       const correctParams = {
         ...createReceiverParams,
-        status: ReceiverStatus.RASCUNHO,
+        status: 'RASCUNHO' as ReceiverStatus,
         id,
       }
       await sut.create(createReceiverParams)
