@@ -6,6 +6,7 @@ import {
   chaveAleatoriaSchema,
   cnpjSchema,
   cpfSchema,
+  emailPixKeySchema,
   emailSchema,
   telefoneSchema,
 } from '../schemas'
@@ -29,7 +30,7 @@ const createReceiverRequestSchema = Type.Composite([
     }),
     Type.Object({
       pix_key_type: Type.Literal('EMAIL'),
-      pix_key: emailSchema,
+      pix_key: emailPixKeySchema,
     }),
     Type.Object({
       pix_key_type: Type.Literal('TELEFONE'),
@@ -43,14 +44,22 @@ const createReceiverRequestSchema = Type.Composite([
 ])
 
 export class CreateReceiverRequestValidator
-  implements Validator<CreateReceiverRequest> {
-  constructor() { }
+  implements Validator<CreateReceiverRequest>
+{
+  constructor() {}
 
   validate(input: any): CreateReceiverRequest {
     try {
       const output = Value.Encode(createReceiverRequestSchema, input)
       return output
     } catch {
+      // console.log(
+      //   JSON.stringify(
+      //     JSON.stringify([...Value.Errors(createReceiverRequestSchema, input)]),
+      //     null,
+      //     2,
+      //   ),
+      // )
       throw new InvalidParamsError(
         getInvalidParamsFromTypeBox(
           Value.Errors(createReceiverRequestSchema, input),
