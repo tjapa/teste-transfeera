@@ -1,4 +1,4 @@
-import { CreateReceiverRepository } from '@/repository/protocols/create-account-receiver-repository'
+import { CreateReceiverRepository } from '@/repository/protocols/create-receiver-repository'
 import { ReceiverModel, ReceiverStatus } from '@/domain/models/receiver'
 import {
   CreateReceiverParams,
@@ -10,7 +10,7 @@ export class CreateReceiver implements CreateReceiverUseCase {
   constructor(
     private readonly createReceiverRepository: CreateReceiverRepository,
     private readonly idGenerator: IdGenerator,
-  ) { }
+  ) {}
 
   async create(
     createReceiverParams: CreateReceiverParams,

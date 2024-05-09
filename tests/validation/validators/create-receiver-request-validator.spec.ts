@@ -32,6 +32,7 @@ describe('Create Receiver Request Validator', () => {
       mockCreateReceiverRequestWrongRegisterId(),
     ]
     for (const createReceiverRequest of createReceiverRequests) {
+      // console.log(createReceiverRequest)
       expect(() => {
         sut.validate(createReceiverRequest)
       }).toThrow(InvalidParamsError)

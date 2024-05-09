@@ -1,5 +1,5 @@
 import { ReceiverModel } from '@/domain/models/receiver'
-import { CreateReceiverRepository } from '@/repository/protocols/create-account-receiver-repository'
+import { CreateReceiverRepository } from '@/repository/protocols/create-receiver-repository'
 import { drizzleClient } from './dizzleClient'
 import { receivers } from './schemas'
 

@@ -99,7 +99,8 @@ export const mockCreateReceiverRequestWrongChaveAleatoria =
 export const mockCreateReceiverRequestWrongTelefone =
   (): CreateReceiverRequest => ({
     pix_key_type: 'TELEFONE',
-    pix_key: randexp(/^((?:\+?55)?)([1-9][0-9])(9[0-9]{9})$/),
+    pix_key: randexp(/^((?:\+?55)?)([1-9][0-9])(9[0-9]{10})$/),
+    // pix_key: '55249161699868',
     email: faker.internet.email().toUpperCase(),
     name: faker.person.fullName(),
     register_id: randexp(

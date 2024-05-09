@@ -1,10 +1,10 @@
-import { mockCreateReceiverParams } from '@/tests/domain/mocks/mockReceiver'
+import { mockCreateReceiverParams } from '@/tests/domain/mocks/mock-receiver'
 import { CreateReceiverUseCase } from '@/domain/protocols/create-receiver-use-case'
 import { CreateReceiver } from '@/domain/use-cases/create-receiver-use-case'
 import { IdGenerator } from '@/domain/protocols/id-generator'
-import { CreateReceiverRepository } from '@/repository/protocols/create-account-receiver-repository'
-import { mockCreateReceiverRepositoy } from '@/tests/repository/mocks/mock-create-account-repository'
-import { mockIdGenerator } from '@/tests/domain/mocks/mockIdGenerator'
+import { CreateReceiverRepository } from '@/repository/protocols/create-receiver-repository'
+import { mockCreateReceiverRepository } from '@/tests/repository/mocks/mock-create-receiver-repository'
+import { mockIdGenerator } from '@/tests/domain/mocks/mock-id-generator'
 import { throwError } from '@/tests/helpers/throw-error'
 import { ReceiverStatus } from '@/domain/models/receiver'
 
@@ -15,7 +15,7 @@ interface SutType {
 }
 
 const makeSut = (): SutType => {
-  const createReceiverRepositoryStub = mockCreateReceiverRepositoy()
+  const createReceiverRepositoryStub = mockCreateReceiverRepository()
   const idGeneratorStub = mockIdGenerator()
   const sut = new CreateReceiver(createReceiverRepositoryStub, idGeneratorStub)
 
