@@ -1,10 +1,10 @@
-import { mockCreateReceiverParams } from '@/tests/domain/mock/mockReceiver'
+import { mockCreateReceiverParams } from '@/tests/domain/mocks/mockReceiver'
 import { CreateReceiverUseCase } from '@/domain/protocols/create-receiver-use-case'
 import { CreateReceiver } from '@/domain/use-cases/create-receiver-use-case'
 import { IdGenerator } from '@/domain/protocols/id-generator'
 import { CreateReceiverRepository } from '@/repository/protocols/create-account-receiver-repository'
 import { mockCreateReceiverRepositoy } from '@/tests/repository/mocks/mock-create-account-repository'
-import { mockIdGenerator } from '../mock/mockIdGenerator'
+import { mockIdGenerator } from '@/tests/domain/mocks/mockIdGenerator'
 import { throwError } from '@/tests/helpers/throw-error'
 import { ReceiverStatus } from '@/domain/models/receiver'
 
@@ -70,7 +70,7 @@ describe('Create Receiver Use Case', () => {
   })
 
   test('Should call IdGenerator', async () => {
-    const { sut, idGeneratorStub, createReceiverRepositoryStub } = makeSut()
+    const { sut, idGeneratorStub } = makeSut()
     const idGeneratorSpy = jest.spyOn(idGeneratorStub, 'generate')
     const createReceiverParams = mockCreateReceiverParams()
     await sut.create(createReceiverParams)

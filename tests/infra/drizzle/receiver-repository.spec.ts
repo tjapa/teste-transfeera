@@ -1,7 +1,7 @@
 import { disconnect, drizzleClient } from '@/infra/db/drizzle/dizzleClient'
 import { ReceiverRepository } from '@/infra/db/drizzle/receiver-repository'
 import { receivers } from '@/infra/db/drizzle/schemas'
-import { mockReceiver } from '@/tests/domain/mock/mockReceiver'
+import { mockReceiver } from '@/tests/domain/mocks/mockReceiver'
 
 describe('Receiver Repository', () => {
   afterAll(async () => {
