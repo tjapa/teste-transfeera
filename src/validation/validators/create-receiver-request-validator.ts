@@ -1,5 +1,5 @@
 import { CreateReceiverRequest } from '@/presentation/models/create-receiver-request'
-import { Validation } from '@/presentation/protocols/validation'
+import { Validator } from '@/presentation/protocols/validation'
 import { Type } from '@sinclair/typebox'
 import { Value } from '@sinclair/typebox/value'
 import {
@@ -42,10 +42,9 @@ const createReceiverRequestSchema = Type.Composite([
   ]),
 ])
 
-export class ValidationCreateReceiverRequest
-  implements Validation<CreateReceiverRequest>
-{
-  constructor() {}
+export class CreateReceiverRequestValidator
+  implements Validator<CreateReceiverRequest> {
+  constructor() { }
 
   validate(input: any): CreateReceiverRequest {
     try {

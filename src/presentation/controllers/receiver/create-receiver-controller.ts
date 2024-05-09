@@ -8,7 +8,7 @@ import {
   Controller,
   HttpRequest,
   HttpResponse,
-  Validation,
+  Validator,
 } from '@/presentation/protocols'
 import {
   CreateReceiverUseCase,
@@ -18,14 +18,14 @@ import {
 export class CreateReceiverController implements Controller {
   constructor(
     private readonly createReceiver: CreateReceiverUseCase,
-    private readonly validation: Validation<CreateReceiverRequest>,
+    private readonly validator: Validator<CreateReceiverRequest>,
   ) { }
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     let createReceiverRequest: CreateReceiverRequest
 
     try {
-      createReceiverRequest = this.validation.validate(httpRequest.body)
+      createReceiverRequest = this.validator.validate(httpRequest.body)
     } catch (error) {
       console.log(error)
       return forbidden(error as Error)
