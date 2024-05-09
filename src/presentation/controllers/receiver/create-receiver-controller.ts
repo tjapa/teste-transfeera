@@ -14,6 +14,7 @@ import {
   CreateReceiverUseCase,
   CreateReceiverParams,
 } from '@/use-cases/protocols/create-receiver-use-case'
+import { mapReceiverModelToReceiverResponse } from '@/presentation/mappers/receiver-model-to-receiver-model-response'
 
 export class CreateReceiverController implements Controller {
   constructor(
@@ -39,16 +40,9 @@ export class CreateReceiverController implements Controller {
         registerId: createReceiverRequest.register_id,
       }
       const receiver = await this.createReceiver.create(createReceiverParams)
+      const receiverFormatted = mapReceiverModelToReceiverResponse(receiver)
 
-      return ok({
-        id: receiver.id,
-        pix_key_type: receiver.pixKeyType,
-        pix_key: receiver.pixKey,
-        email: receiver.email,
-        name: receiver.name,
-        register_id: receiver.registerId,
-        status: receiver.status,
-      })
+      return ok(receiverFormatted)
     } catch (error) {
       return serverError()
     }
