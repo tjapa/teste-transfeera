@@ -1,14 +1,18 @@
 export type ReceiverModel = {
   id: string
-  pixKeyType: 'CPF' | 'CNPJ' | 'EMAIL' | 'TELEFONE' | 'CHAVE_ALEATORIA'
+  pixKeyType: PixKeyType
   pixKey: string
   email: string
   name: string
   registerId: string
-  status: 'RASCUNHO' | 'VALIDADO'
+  status: ReceiverStatus
 }
 
-export enum ReceiverStatus {
-  RASCUNHO = 'RASCUNHO',
-  VALIDADO = 'VALIDADO',
-}
+export type PixKeyType =
+  | 'CPF'
+  | 'CNPJ'
+  | 'EMAIL'
+  | 'TELEFONE'
+  | 'CHAVE_ALEATORIA'
+
+export type ReceiverStatus = 'RASCUNHO' | 'VALIDADO'

@@ -15,10 +15,10 @@ export class CreateReceiver implements CreateReceiverUseCase {
   async create(
     createReceiverParams: CreateReceiverParams,
   ): Promise<ReceiverModel> {
-    const receiver = {
+    const receiver: ReceiverModel = {
       ...createReceiverParams,
       id: this.idGenerator.generate(),
-      status: ReceiverStatus.RASCUNHO,
+      status: 'RASCUNHO',
     }
     const receiverCreated = await this.createReceiverRepository.create(receiver)
     return receiverCreated
