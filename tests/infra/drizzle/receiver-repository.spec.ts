@@ -160,4 +160,64 @@ describe('Receiver Repository', () => {
       expect(receiversGetted[0].name).toEqual(receiversCreated[3].name)
     })
   })
+
+  describe('delete()', () => {
+    test('Should delete the receivers from db and return a list with deleted receivers', async () => {
+      const sut = makeSut()
+      const receiversCreated = []
+      for (let i = 0; i < 10; i++) {
+        receiversCreated.push(mockReceiverRascunhoCPF())
+      }
+      await drizzleClient.insert(receivers).values(receiversCreated)
+      const receiversShouldDeleted = [
+        receiversCreated[0].id,
+        receiversCreated[5].id,
+        receiversCreated[7].id,
+      ]
+      const receiversDeleted = await sut.delete(receiversShouldDeleted)
+      expect(receiversDeleted).toHaveLength(3)
+      expect(receiversDeleted).toEqual(
+        expect.arrayContaining(
+          receiversShouldDeleted.map((id) => ({
+            deletedReceiverId: id,
+          })),
+        ),
+      )
+
+      const receiversInDb = await drizzleClient.query.receivers.findMany()
+      expect(receiversInDb).toHaveLength(7)
+    })
+
+    test('Should delete nothing is empty array is provided', async () => {
+      const sut = makeSut()
+      const receiversCreated = []
+      for (let i = 0; i < 10; i++) {
+        receiversCreated.push(mockReceiverRascunhoCPF())
+      }
+      await drizzleClient.insert(receivers).values(receiversCreated)
+
+      const receiversDeleted = await sut.delete([])
+      expect(receiversDeleted).toHaveLength(0)
+      expect(receiversDeleted).toEqual([])
+
+      const receiversInDb = await drizzleClient.query.receivers.findMany()
+      expect(receiversInDb).toHaveLength(10)
+    })
+
+    test('Should ignore non valid ids', async () => {
+      const sut = makeSut()
+      const receiversCreated = []
+      for (let i = 0; i < 10; i++) {
+        receiversCreated.push(mockReceiverRascunhoCPF())
+      }
+      await drizzleClient.insert(receivers).values(receiversCreated)
+      const receiversShouldDeleted = ['invalidId']
+      const receiversDeleted = await sut.delete(receiversShouldDeleted)
+      expect(receiversDeleted).toHaveLength(0)
+      expect(receiversDeleted).toEqual([])
+
+      const receiversInDb = await drizzleClient.query.receivers.findMany()
+      expect(receiversInDb).toHaveLength(10)
+    })
+  })
 })
