@@ -28,11 +28,11 @@ export class ReceiverRepository
   async getReceivers(filters?: FiltersGetReceivers): Promise<ReceiverModel[]> {
     const wheres = []
 
-    if (filters?.pixKey) wheres.push(eq(receivers.pixKey, filters?.pixKey))
+    if (filters?.pixKey) wheres.push(eq(receivers.pixKey, filters.pixKey))
     if (filters?.pixKeyType)
-      wheres.push(eq(receivers.pixKeyType, filters?.pixKeyType))
-    if (filters?.status) wheres.push(eq(receivers.status, filters?.status))
-    if (filters?.name) wheres.push(eq(receivers.name, filters?.name))
+      wheres.push(eq(receivers.pixKeyType, filters.pixKeyType))
+    if (filters?.status) wheres.push(eq(receivers.status, filters.status))
+    if (filters?.name) wheres.push(eq(receivers.name, filters.name))
 
     return await drizzleClient.query.receivers.findMany({
       columns: {
