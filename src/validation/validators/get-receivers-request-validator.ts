@@ -47,7 +47,8 @@ export class GetReceiversRequestValidator
   constructor() {}
   validate(input: any): GetReceiversRequest {
     try {
-      const output = Value.Encode(getReceiversRequestSchema, input)
+      const convertedInput = Value.Convert(getReceiversRequestSchema, input)
+      const output = Value.Encode(getReceiversRequestSchema, convertedInput)
       return output
     } catch {
       throw new InvalidParamsError(
