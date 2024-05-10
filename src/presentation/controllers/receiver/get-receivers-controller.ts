@@ -33,11 +33,11 @@ export class GetReceiversController implements Controller {
 
     try {
       const filterGetReceiversRequest: FiltersGetReceivers = {
-        pixKeyType: getReceiversRequest.pix_key_type,
-        pixKey: getReceiversRequest.pix_key,
-        name: getReceiversRequest.name,
-        offset: getReceiversRequest.offset,
-        status: getReceiversRequest.status,
+        pixKeyType: getReceiversRequest?.pix_key_type,
+        pixKey: getReceiversRequest?.pix_key,
+        name: getReceiversRequest?.name,
+        offset: getReceiversRequest?.offset,
+        status: getReceiversRequest?.status,
       }
       const receivers = await this.getReceivers.getReceivers(
         filterGetReceiversRequest,
