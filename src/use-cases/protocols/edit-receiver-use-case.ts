@@ -1,9 +1,10 @@
 import { ReceiverModel } from '@/use-cases/models/receiver'
-import { EditReceiverParams } from '@/use-cases/protocols/edit-receiver-use-case'
 
-export interface EditReceiverRepository {
+export interface EditReceiverUseCase {
   edit: (
     id: string,
     editReceiverData: EditReceiverParams,
   ) => Promise<ReceiverModel>
 }
+
+export type EditReceiverParams = Omit<ReceiverModel, 'id' | 'status'>

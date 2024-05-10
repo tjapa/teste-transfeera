@@ -6,7 +6,7 @@ import {
   mockReceiverRascunhoCPF,
   mockReceiverValidadoCPF,
 } from '@/tests/use-cases/mocks/mock-receiver'
-import { EditReceiverModel, ReceiverModel } from '@/use-cases/models/receiver'
+import { ReceiverModel } from '@/use-cases/models/receiver'
 import { eq } from 'drizzle-orm'
 
 describe('Receiver Repository', () => {

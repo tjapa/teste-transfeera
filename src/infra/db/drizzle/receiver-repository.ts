@@ -1,4 +1,4 @@
-import { EditReceiverModel, ReceiverModel } from '@/use-cases/models/receiver'
+import { ReceiverModel } from '@/use-cases/models/receiver'
 import { CreateReceiverRepository } from '@/repository/protocols/create-receiver-repository'
 import {
   FiltersGetReceivers,
@@ -13,6 +13,7 @@ import {
 } from '@/repository/protocols/delete-receivers-repository'
 import { GetReceiverByIdRepository } from '@/repository/protocols/get-receiver-by-id-repository'
 import { EditReceiverRepository } from '@/repository/protocols/edit-receiver-repository'
+import { EditReceiverParams } from '@/use-cases/protocols/edit-receiver-use-case'
 
 export class ReceiverRepository
   implements
@@ -81,7 +82,7 @@ export class ReceiverRepository
 
   async edit(
     id: string,
-    editReceiverData: EditReceiverModel,
+    editReceiverData: EditReceiverParams,
   ): Promise<ReceiverModel> {
     return (
       await drizzleClient

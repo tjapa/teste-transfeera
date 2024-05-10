@@ -16,5 +16,3 @@ export type PixKeyType =
   | 'CHAVE_ALEATORIA'
 
 export type ReceiverStatus = 'RASCUNHO' | 'VALIDADO'
-
-export type EditReceiverModel = Omit<ReceiverModel, 'id'>
