@@ -94,4 +94,48 @@ describe('Receiver Routes', () => {
       await request(app).get('/api/receivers?pix_key=93294').send().expect(403)
     })
   })
+
+  describe('DELETE /receivers', () => {
+    test('Should return 200 on valid get receivers request', async () => {
+      const receiversCreated = [
+        mockReceiverRascunhoCPF(),
+        mockReceiverRascunhoEmail(),
+        mockReceiverValidadoCPF(),
+      ]
+      await drizzleClient.insert(receivers).values(receiversCreated)
+
+      await request(app)
+        .delete('/api/receivers')
+        .send([
+          receiversCreated[0].id,
+          'invalid_id1',
+          'invalid_id2',
+          receiversCreated[2].id,
+        ])
+        .expect(200)
+        .then((response) => {
+          const { body } = response
+          expect(body.not_found_receiver_ids).toHaveLength(2)
+          expect(body.not_found_receiver_ids).toEqual(
+            expect.arrayContaining(['invalid_id1', 'invalid_id2']),
+          )
+          expect(body.deleted_receiver_ids).toHaveLength(2)
+          expect(body.deleted_receiver_ids).toEqual(
+            expect.arrayContaining([
+              receiversCreated[0].id,
+              receiversCreated[0].id,
+            ]),
+          )
+        })
+    })
+
+    test('Should return 403 on invalid params', async () => {
+      await request(app).delete('/api/receivers').send().expect(403)
+      await request(app).delete('/api/receivers').send([1]).expect(403)
+      await request(app)
+        .delete('/api/receivers')
+        .send(['test', 1, 'test'])
+        .expect(403)
+    })
+  })
 })
