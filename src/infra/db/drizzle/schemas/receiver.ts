@@ -1,4 +1,4 @@
-import { pgTable, uuid, varchar, pgEnum } from 'drizzle-orm/pg-core'
+import { pgTable, uuid, varchar, pgEnum, timestamp } from 'drizzle-orm/pg-core'
 
 export const receiverStatusEnum = pgEnum('receiver_status', [
   'RASCUNHO',
@@ -21,4 +21,16 @@ export const receivers = pgTable('receivers', {
   pixKey: varchar('pix_key', { length: 255 }).notNull(),
   pixKeyType: pixKeyTypeEnum('pix_key_type').notNull(),
   status: receiverStatusEnum('status').notNull(),
+  createdAt: timestamp('created_at', {
+    precision: 6,
+    mode: 'string',
+  })
+    .defaultNow()
+    .notNull(),
+  modifiedAt: timestamp('modified_at', {
+    precision: 6,
+    mode: 'string',
+  })
+    .defaultNow()
+    .notNull(),
 })

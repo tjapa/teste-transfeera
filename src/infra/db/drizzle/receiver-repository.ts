@@ -6,7 +6,7 @@ import {
 } from '@/repository/protocols/get-receivers-repository'
 import { drizzleClient } from './dizzleClient'
 import { receivers } from './schemas'
-import { and, eq } from 'drizzle-orm'
+import { and, desc, eq } from 'drizzle-orm'
 
 export class ReceiverRepository
   implements CreateReceiverRepository, GetReceiversRepository
@@ -27,9 +27,14 @@ export class ReceiverRepository
     if (filters?.name) wheres.push(eq(receivers.name, filters?.name))
 
     return await drizzleClient.query.receivers.findMany({
+      columns: {
+        createdAt: false,
+        modifiedAt: false,
+      },
       where: and(...wheres),
       limit: 10,
       offset: filters?.offset,
+      orderBy: desc(receivers.modifiedAt),
     })
   }
 }

@@ -8,6 +8,13 @@
       "when": 1715202839257,
       "tag": "0000_careless_pandemic",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1715307353761,
+      "tag": "0001_talented_the_initiative",
+      "breakpoints": true
     }
   ]
 }
