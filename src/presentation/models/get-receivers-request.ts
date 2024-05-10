@@ -4,5 +4,4 @@ export type GetReceiversRequest = {
   name?: string
   status?: 'RASCUNHO' | 'VALIDADO'
   offset?: number
-  pixKey?: string
 }

@@ -15,7 +15,7 @@ import { getInvalidParamsFromTypeBox } from '../helpers/get-invalid-params-from-
 
 const createReceiverRequestSchema = Type.Composite([
   Type.Object({
-    name: Type.String({ minLength: 2, maxLength: 255 }),
+    name: Type.String(),
     email: emailSchema,
     register_id: Type.Union([cpfSchema, cnpjSchema]),
   }),
@@ -53,13 +53,6 @@ export class CreateReceiverRequestValidator
       const output = Value.Encode(createReceiverRequestSchema, input)
       return output
     } catch {
-      // console.log(
-      //   JSON.stringify(
-      //     JSON.stringify([...Value.Errors(createReceiverRequestSchema, input)]),
-      //     null,
-      //     2,
-      //   ),
-      // )
       throw new InvalidParamsError(
         getInvalidParamsFromTypeBox(
           Value.Errors(createReceiverRequestSchema, input),
