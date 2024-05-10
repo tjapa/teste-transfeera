@@ -40,4 +40,9 @@ describe('Get Receivers Request Validator', () => {
     expect(sut.validate(undefined)).toEqual(undefined)
     expect(sut.validate({})).toEqual({})
   })
+
+  test('Should cast strings to number if needed', async () => {
+    const sut = makeSut()
+    expect(sut.validate({ offset: '10' })).toEqual({ offset: 10 })
+  })
 })
