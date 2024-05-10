@@ -56,7 +56,7 @@ describe('Delete Receivers Controller', () => {
       deleted_receiver_ids:
         mockReturnValueDeleteReceiverUseCase.deletedReceiverIds,
       not_found_receiver_ids:
-        mockReturnValueDeleteReceiverUseCase.deletedReceiverIds,
+        mockReturnValueDeleteReceiverUseCase.notFoundReceiverIds,
     }
     expect(body).toEqual(expectedResponse)
   })
