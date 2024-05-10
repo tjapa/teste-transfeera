@@ -26,7 +26,7 @@ export class GetReceiversController implements Controller {
     let getReceiversRequest: GetReceiversRequest
 
     try {
-      getReceiversRequest = this.validator.validate(httpRequest.params)
+      getReceiversRequest = this.validator.validate(httpRequest.query)
     } catch (error) {
       return forbidden(error as Error)
     }
