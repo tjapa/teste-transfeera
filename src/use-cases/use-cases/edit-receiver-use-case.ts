@@ -12,7 +12,7 @@ export class EditReceiver implements EditReceiverUseCase {
   constructor(
     private readonly getReceiverByIdRepository: GetReceiverByIdRepository,
     private readonly editReceiverByIdRepository: EditReceiverRepository,
-  ) {}
+  ) { }
 
   async edit(
     id: string,
@@ -27,8 +27,8 @@ export class EditReceiver implements EditReceiverUseCase {
     if (receiver.status === 'VALIDADO') {
       const editReceiverDataKeys = Object.keys(editReceiverData)
       const validFields = ['email']
-      const invalidFields = editReceiverDataKeys.filter((key) =>
-        validFields.includes(key),
+      const invalidFields = editReceiverDataKeys.filter(
+        (key) => !validFields.includes(key),
       )
       if (invalidFields.length > 0) {
         throw new InvalidReceiverEditDataFieldsError(invalidFields)
