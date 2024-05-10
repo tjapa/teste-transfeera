@@ -9,3 +9,7 @@ export const mockEditReceiverParams = (): EditReceiverParams => ({
   name: faker.person.fullName(),
   registerId: randexp(/^[0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}$/),
 })
+
+export const mockEditReceiverParamsOnlyEmail = (): EditReceiverParams => ({
+  email: faker.internet.email(),
+})

@@ -5,7 +5,10 @@ import { mockEditReceiverRepository } from '@/tests/repository/mocks/mock-edit-r
 import { throwError } from '@/tests/helpers/throw-error'
 import { GetReceiverByIdRepository } from '@/repository/protocols/get-receiver-by-id-repository'
 import { mockGetReceiverByIdRepository } from '@/tests/repository/mocks/mock-get-receiver-by-id-repository'
-import { mockEditReceiverParams } from '../mocks/mock-edit-receiver-params'
+import {
+  mockEditReceiverParams,
+  mockEditReceiverParamsOnlyEmail,
+} from '../mocks/mock-edit-receiver-params'
 import { ReceiverNotFoundError } from '@/use-cases/errors/receiver-not-found-error'
 import {
   mockReceiverRascunhoCPF,
@@ -36,7 +39,7 @@ const makeSut = (): SutType => {
 
 describe('Edit Receiver Use Case', () => {
   describe('edit()', () => {
-    test('Should return the receiver edited from db on success', async () => {
+    test('Should return the receiver with status RASCUNHO edited from db on success', async () => {
       const { sut, getReceiverByIdRepositoryStub, editReceiverRepositoryStub } =
         makeSut()
       const receiver = mockReceiverRascunhoCPF()
@@ -46,6 +49,26 @@ describe('Edit Receiver Use Case', () => {
 
       const id = receiver.id
       const editReceiverData = mockEditReceiverParams()
+      const expectedReturn = { ...receiver, ...editReceiverData }
+
+      jest
+        .spyOn(editReceiverRepositoryStub, 'edit')
+        .mockReturnValueOnce(Promise.resolve(expectedReturn))
+
+      const receiverEdited = await sut.edit(id, editReceiverData)
+      expect(receiverEdited).toEqual(expectedReturn)
+    })
+
+    test('Should return the receiver with status VALIDADO edited from db on success', async () => {
+      const { sut, getReceiverByIdRepositoryStub, editReceiverRepositoryStub } =
+        makeSut()
+      const receiver = mockReceiverValidadoCPF()
+      jest
+        .spyOn(getReceiverByIdRepositoryStub, 'getReceiverById')
+        .mockReturnValueOnce(Promise.resolve(receiver))
+
+      const id = receiver.id
+      const editReceiverData = mockEditReceiverParamsOnlyEmail()
       const expectedReturn = { ...receiver, ...editReceiverData }
 
       jest
