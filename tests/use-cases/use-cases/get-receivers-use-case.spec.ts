@@ -5,10 +5,11 @@ import {
 import { mockGetReceiversRepository } from '@/tests/repository/mocks/mock-get-receivers-repository'
 import { GetReceivers } from '@/use-cases/use-cases/get-receivers-use-case'
 import { mockReceiverRascunhoCPF } from '../mocks/mock-receiver'
+import { GetReceiversRepository } from '@/repository/protocols/get-receivers-repository'
 
 interface SutType {
   sut: GetReceiversUseCase
-  getReceiversRepositoryStub: GetReceiversUseCase
+  getReceiversRepositoryStub: GetReceiversRepository
 }
 
 const makeSut = (): SutType => {

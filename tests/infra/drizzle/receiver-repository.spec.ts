@@ -175,14 +175,12 @@ describe('Receiver Repository', () => {
         receiversCreated[7].id,
       ]
       const receiversDeleted = await sut.delete(receiversShouldDeleted)
+      const expectedResponse = receiversShouldDeleted.map((id) => ({
+        deletedReceiverId: id,
+      }))
+
       expect(receiversDeleted).toHaveLength(3)
-      expect(receiversDeleted).toEqual(
-        expect.arrayContaining(
-          receiversShouldDeleted.map((id) => ({
-            deletedReceiverId: id,
-          })),
-        ),
-      )
+      expect(receiversDeleted).toEqual(expect.arrayContaining(expectedResponse))
 
       const receiversInDb = await drizzleClient.query.receivers.findMany()
       expect(receiversInDb).toHaveLength(7)

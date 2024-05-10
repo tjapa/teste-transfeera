@@ -7,7 +7,10 @@ import {
 import { drizzleClient } from './dizzleClient'
 import { receivers } from './schemas'
 import { and, desc, eq, inArray } from 'drizzle-orm'
-import { DeleteReceiversRepository } from '@/repository/protocols/delete-receivers-repository'
+import {
+  DeleteReceiversRepository,
+  DeleteReceiversRepositoryResponse,
+} from '@/repository/protocols/delete-receivers-repository'
 
 export class ReceiverRepository
   implements
@@ -52,7 +55,7 @@ export class ReceiverRepository
 
   async delete(
     receiverIds: string[],
-  ): Promise<{ deletedReceiverId: string }[]> {
+  ): Promise<DeleteReceiversRepositoryResponse> {
     if (receiverIds.length < 1) {
       return []
     }
