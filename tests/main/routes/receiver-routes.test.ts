@@ -4,8 +4,8 @@ import { disconnect, drizzleClient } from '@/infra/db/drizzle/dizzleClient'
 import { receivers } from '@/infra/db/drizzle/schemas'
 import {
   mockCreateReceiverRequestCPF,
-  mockCreateReceiverRequestWrongCPF,
-} from '@/tests/presentation/mocks/create-receiver-request-mocks'
+  mockCreateReceiverRequestInvalidCPF,
+} from '@/tests/presentation/mocks/mocks-create-receiver-request'
 
 describe('Receiver Routes', () => {
   afterAll(async () => {
@@ -32,7 +32,7 @@ describe('Receiver Routes', () => {
     })
 
     test('Should return 403 on invalid create receiver request', async () => {
-      const createReceiverRequest = mockCreateReceiverRequestWrongCPF()
+      const createReceiverRequest = mockCreateReceiverRequestInvalidCPF()
       await request(app)
         .post('/api/receivers')
         .send(createReceiverRequest)

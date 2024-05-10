@@ -5,14 +5,14 @@ import {
   mockCreateReceiverRequestChaveAleatoria,
   mockCreateReceiverRequestPixEmail,
   mockCreateReceiverRequestTelefone,
-  mockCreateReceiverRequestWrongCNPJ,
-  mockCreateReceiverRequestWrongCPF,
-  mockCreateReceiverRequestWrongChaveAleatoria,
-  mockCreateReceiverRequestWrongPixEmail,
-  mockCreateReceiverRequestWrongEmail,
-  mockCreateReceiverRequestWrongTelefone,
-  mockCreateReceiverRequestWrongRegisterId,
-} from '@/tests/presentation/mocks/create-receiver-request-mocks'
+  mockCreateReceiverRequestInvalidCNPJ,
+  mockCreateReceiverRequestInvalidCPF,
+  mockCreateReceiverRequestInvalidChaveAleatoria,
+  mockCreateReceiverRequestInvalidPixEmail,
+  mockCreateReceiverRequestInvalidEmail,
+  mockCreateReceiverRequestInvalidTelefone,
+  mockCreateReceiverRequestInvalidRegisterId,
+} from '@/tests/presentation/mocks/mocks-create-receiver-request'
 import { InvalidParamsError } from '@/presentation/errors/invalid-params-error'
 
 const makeSut = (): CreateReceiverRequestValidator => {
@@ -20,26 +20,25 @@ const makeSut = (): CreateReceiverRequestValidator => {
 }
 
 describe('Create Receiver Request Validator', () => {
-  test('Should thrown if a invalid Create Receiver Request is provided', async () => {
+  test('Should thrown if a invalid Create Receiver Request is provided', () => {
     const sut = makeSut()
     const createReceiverRequests = [
-      mockCreateReceiverRequestWrongCPF(),
-      mockCreateReceiverRequestWrongCNPJ(),
-      mockCreateReceiverRequestWrongPixEmail(),
-      mockCreateReceiverRequestWrongTelefone(),
-      mockCreateReceiverRequestWrongChaveAleatoria(),
-      mockCreateReceiverRequestWrongEmail(),
-      mockCreateReceiverRequestWrongRegisterId(),
+      mockCreateReceiverRequestInvalidCPF(),
+      mockCreateReceiverRequestInvalidCNPJ(),
+      mockCreateReceiverRequestInvalidPixEmail(),
+      mockCreateReceiverRequestInvalidTelefone(),
+      mockCreateReceiverRequestInvalidChaveAleatoria(),
+      mockCreateReceiverRequestInvalidEmail(),
+      mockCreateReceiverRequestInvalidRegisterId(),
     ]
     for (const createReceiverRequest of createReceiverRequests) {
-      // console.log(createReceiverRequest)
       expect(() => {
         sut.validate(createReceiverRequest)
       }).toThrow(InvalidParamsError)
     }
   })
 
-  test('Should return a valid createReceiverRequest on sucesss ', async () => {
+  test('Should return a valid createReceiverRequest on sucesss ', () => {
     const sut = makeSut()
     const createReceiverRequests = [
       mockCreateReceiverRequestCPF(),

@@ -1,6 +1,6 @@
 import { CreateReceiverRequest } from '@/presentation/models/create-receiver-request'
 import { Validator } from '@/presentation/protocols'
-import { mockCreateReceiverRequestCPF } from '@/tests/presentation/mocks/create-receiver-request-mocks'
+import { mockCreateReceiverRequestCPF } from '@/tests/presentation/mocks/mocks-create-receiver-request'
 
 export const mockCreateReceiverRequestValidator =
   (): Validator<CreateReceiverRequest> => {

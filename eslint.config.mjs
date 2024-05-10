@@ -15,6 +15,7 @@ export default [
       'no-unused-vars': 'off',
       'no-useless-escape': 'off',
       '@typescript-eslint/ban-types': 'off',
+      '@typescript-eslint/ban-ts-comment': 'off',
       '@typescript-eslint/no-unused-vars': [
         'warn', // or "error"
         {

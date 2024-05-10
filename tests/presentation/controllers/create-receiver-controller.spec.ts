@@ -4,7 +4,7 @@ import { CreateReceiverRequest } from '@/presentation/models/create-receiver-req
 import { Validator } from '@/presentation/protocols'
 import { mockCreateReceiverRequestValidator } from '@/tests/validation/mocks/mock-create-receiver-request-validator'
 import { mockCreateReceiverUseCase } from '@/tests/use-cases/mocks/mock-create-receiver-use-case'
-import { mockCreateReceiverRequestCPF } from '../mocks/create-receiver-request-mocks'
+import { mockCreateReceiverRequestCPF } from '../mocks/mocks-create-receiver-request'
 import { throwError } from '@/tests/helpers/throw-error'
 import { mockCreateReceiverParams } from '@/tests/use-cases/mocks/mock-receiver'
 

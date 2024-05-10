@@ -53,7 +53,7 @@ export const mockCreateReceiverRequestTelefone = (): CreateReceiverRequest => ({
   ),
 })
 
-export const mockCreateReceiverRequestWrongCPF = (): CreateReceiverRequest => ({
+export const mockCreateReceiverRequestInvalidCPF = (): CreateReceiverRequest => ({
   pix_key_type: 'CPF',
   pix_key: randexp(/^[0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{3}$/),
   email: faker.internet.email().toUpperCase(),
@@ -61,7 +61,7 @@ export const mockCreateReceiverRequestWrongCPF = (): CreateReceiverRequest => ({
   register_id: randexp(/^[0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}$/),
 })
 
-export const mockCreateReceiverRequestWrongPixEmail =
+export const mockCreateReceiverRequestInvalidPixEmail =
   (): CreateReceiverRequest => ({
     pix_key_type: 'EMAIL',
     pix_key: randexp(/^[A-Z0-9+_.-]+@[a-z0-9.-]+$/),
@@ -70,7 +70,7 @@ export const mockCreateReceiverRequestWrongPixEmail =
     register_id: randexp(/^[0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}$/),
   })
 
-export const mockCreateReceiverRequestWrongCNPJ =
+export const mockCreateReceiverRequestInvalidCNPJ =
   (): CreateReceiverRequest => ({
     pix_key_type: 'CNPJ',
     pix_key: randexp(
@@ -83,7 +83,7 @@ export const mockCreateReceiverRequestWrongCNPJ =
     ),
   })
 
-export const mockCreateReceiverRequestWrongChaveAleatoria =
+export const mockCreateReceiverRequestInvalidChaveAleatoria =
   (): CreateReceiverRequest => ({
     pix_key_type: 'CHAVE_ALEATORIA',
     pix_key: randexp(
@@ -96,7 +96,7 @@ export const mockCreateReceiverRequestWrongChaveAleatoria =
     ),
   })
 
-export const mockCreateReceiverRequestWrongTelefone =
+export const mockCreateReceiverRequestInvalidTelefone =
   (): CreateReceiverRequest => ({
     pix_key_type: 'TELEFONE',
     pix_key: randexp(/^((?:\+?55)?)([1-9][0-9])(9[0-9]{10})$/),
@@ -108,7 +108,7 @@ export const mockCreateReceiverRequestWrongTelefone =
     ),
   })
 
-export const mockCreateReceiverRequestWrongEmail =
+export const mockCreateReceiverRequestInvalidEmail =
   (): CreateReceiverRequest => ({
     pix_key_type: 'TELEFONE',
     pix_key: randexp(/^((?:\+?55)?)([1-9][0-9])(9[0-9]{8})$/),
@@ -119,9 +119,21 @@ export const mockCreateReceiverRequestWrongEmail =
     ),
   })
 
-export const mockCreateReceiverRequestWrongRegisterId =
+export const mockCreateReceiverRequestInvalidRegisterId =
   (): CreateReceiverRequest => ({
     pix_key_type: 'TELEFONE',
+    pix_key: randexp(/^((?:\+?55)?)([1-9][0-9])(9[0-9]{8})$/),
+    email: faker.internet.email().toUpperCase(),
+    name: faker.person.fullName(),
+    register_id: randexp(
+      /^[0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{3}$/,
+    ),
+  })
+
+export const mockCreateReceiverRequestInvalidPixType =
+  (): CreateReceiverRequest => ({
+    // @ts-ignore
+    pix_key_type: 'invalid_pix_type',
     pix_key: randexp(/^((?:\+?55)?)([1-9][0-9])(9[0-9]{8})$/),
     email: faker.internet.email().toUpperCase(),
     name: faker.person.fullName(),
