@@ -2,6 +2,11 @@ import { faker } from '@faker-js/faker'
 import { randexp } from 'randexp'
 import { EditReceiverRequest } from '@/presentation/models/edit-receiver-request'
 
+export const mockEditReceiverRequestValidForStatusValidado =
+  (): EditReceiverRequest => ({
+    email: faker.internet.email().toUpperCase(),
+  })
+
 export const mockEditReceiverRequestWithoutSomeFields =
   (): EditReceiverRequest => ({
     email: faker.internet.email().toUpperCase(),

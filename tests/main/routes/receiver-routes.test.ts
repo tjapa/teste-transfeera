@@ -12,6 +12,10 @@ import {
   mockReceiverValidadoCPF,
 } from '@/tests/use-cases/mocks/mock-receiver'
 import { mapReceiverModelToReceiverResponse } from '@/presentation/mappers/receiver-model-to-receiver-model-response'
+import {
+  mockEditReceiverRequestCPF,
+  mockEditReceiverRequestValidForStatusValidado,
+} from '@/tests/presentation/mocks/mocks-edit-receiver-request'
 
 describe('Receiver Routes', () => {
   afterAll(async () => {
@@ -135,6 +139,66 @@ describe('Receiver Routes', () => {
       await request(app)
         .delete('/api/receivers')
         .send(['test', 1, 'test'])
+        .expect(403)
+    })
+  })
+
+  describe('PATCH /receivers/:id', () => {
+    test('Should return 200 on valid edit receiver request', async () => {
+      const receiverRascunhoCreated = mockReceiverRascunhoEmail()
+      const receiverValidadoCreated = mockReceiverValidadoCPF()
+      await drizzleClient
+        .insert(receivers)
+        .values([receiverValidadoCreated, receiverRascunhoCreated])
+
+      const editReceiverRascunhoRequest = mockEditReceiverRequestCPF()
+      const expectedResponseEditReceiverRascunho =
+        mapReceiverModelToReceiverResponse({
+          ...receiverRascunhoCreated,
+          ...editReceiverRascunhoRequest,
+        })
+      await request(app)
+        .patch(`/api/receivers/${receiverRascunhoCreated.id}`)
+        .send(editReceiverRascunhoRequest)
+        .expect(200)
+        .then((response) => {
+          const { body } = response
+          expect(body).toEqual(expectedResponseEditReceiverRascunho)
+        })
+
+      const editReceiverValidadoRequest =
+        mockEditReceiverRequestValidForStatusValidado()
+      const expectedResponseEditReceiverValidado =
+        mapReceiverModelToReceiverResponse({
+          ...receiverValidadoCreated,
+          ...editReceiverValidadoRequest,
+        })
+      await request(app)
+        .patch(`/api/receivers/${receiverValidadoCreated.id}`)
+        .send(editReceiverValidadoRequest)
+        .expect(200)
+        .then((response) => {
+          const { body } = response
+          expect(body).toEqual(expectedResponseEditReceiverValidado)
+        })
+    })
+
+    test('Should return 404 on not found receiver', async () => {
+      const editReceiverRascunhoRequest = mockEditReceiverRequestCPF()
+      await request(app)
+        .patch('/api/receivers/any_id')
+        .send(editReceiverRascunhoRequest)
+        .expect(404)
+    })
+
+    test('Should return 403 on try edit invalid field of receiver with status VALIDADO', async () => {
+      const editReceiverRascunhoRequest = mockEditReceiverRequestCPF()
+      const receiverValidadoCreated = mockReceiverValidadoCPF()
+      await drizzleClient.insert(receivers).values([receiverValidadoCreated])
+
+      await request(app)
+        .patch(`/api/receivers/${receiverValidadoCreated.id}`)
+        .send(editReceiverRascunhoRequest)
         .expect(403)
     })
   })
