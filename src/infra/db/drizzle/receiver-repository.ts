@@ -6,10 +6,14 @@ import {
 } from '@/repository/protocols/get-receivers-repository'
 import { drizzleClient } from './dizzleClient'
 import { receivers } from './schemas'
-import { and, desc, eq } from 'drizzle-orm'
+import { and, desc, eq, inArray } from 'drizzle-orm'
+import { DeleteReceiversRepository } from '@/repository/protocols/delete-receivers-repository'
 
 export class ReceiverRepository
-  implements CreateReceiverRepository, GetReceiversRepository
+  implements
+    CreateReceiverRepository,
+    GetReceiversRepository,
+    DeleteReceiversRepository
 {
   async create(receiver: ReceiverModel): Promise<ReceiverModel> {
     return (
@@ -44,5 +48,17 @@ export class ReceiverRepository
       offset: filters?.offset,
       orderBy: desc(receivers.modifiedAt),
     })
+  }
+
+  async delete(
+    receiverIds: string[],
+  ): Promise<{ deletedReceiverId: string }[]> {
+    if (receiverIds.length < 1) {
+      return []
+    }
+    return await drizzleClient
+      .delete(receivers)
+      .where(inArray(receivers.id, receiverIds))
+      .returning({ deletedReceiverId: receivers.id })
   }
 }
