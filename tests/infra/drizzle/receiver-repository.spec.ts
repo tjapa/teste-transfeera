@@ -6,6 +6,8 @@ import {
   mockReceiverRascunhoCPF,
   mockReceiverValidadoCPF,
 } from '@/tests/use-cases/mocks/mock-receiver'
+import { EditReceiverModel, ReceiverModel } from '@/use-cases/models/receiver'
+import { eq } from 'drizzle-orm'
 
 describe('Receiver Repository', () => {
   afterAll(async () => {
@@ -237,6 +239,37 @@ describe('Receiver Repository', () => {
       const sut = makeSut()
       const receiver = await sut.getReceiverById('any_id')
       expect(receiver).toBeUndefined()
+    })
+  })
+
+  describe('edit()', () => {
+    test('Should update the receiver in db and return the receiver updated', async () => {
+      const sut = makeSut()
+
+      const receiverCreated = mockReceiverRascunhoCPF()
+      await drizzleClient.insert(receivers).values(receiverCreated)
+
+      const { id, ...editReceiverData } = mockReceiverRascunhoCPF()
+      const receiverEdited = await sut.edit(
+        receiverCreated.id,
+        editReceiverData,
+      )
+
+      const expectedResponse: ReceiverModel = {
+        ...receiverCreated,
+        ...editReceiverData,
+      }
+
+      expect(receiverEdited).toEqual(expectedResponse)
+
+      const receiverInDb = await drizzleClient.query.receivers.findFirst({
+        columns: {
+          modifiedAt: false,
+          createdAt: false,
+        },
+        where: eq(receivers.id, receiverCreated.id),
+      })
+      expect(receiverInDb).toEqual(receiverEdited)
     })
   })
 })
