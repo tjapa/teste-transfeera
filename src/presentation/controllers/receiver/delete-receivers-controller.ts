@@ -16,7 +16,7 @@ export class DeleteReceiversController implements Controller {
   constructor(
     private readonly deleteReceivers: DeleteReceiversUseCase,
     private readonly validator: Validator<DeleteReceiversRequest>,
-  ) { }
+  ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     let deleteReceiversRequest: DeleteReceiversRequest
@@ -34,7 +34,7 @@ export class DeleteReceiversController implements Controller {
 
       const deletedReceiversFormatted = {
         deleted_receiver_ids: deletedReceivers.deletedReceiverIds,
-        not_found_receiver_ids: deletedReceivers.deletedReceiverIds,
+        not_found_receiver_ids: deletedReceivers.notFoundReceiverIds,
       }
 
       return ok(deletedReceiversFormatted)
