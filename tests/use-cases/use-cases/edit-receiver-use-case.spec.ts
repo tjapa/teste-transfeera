@@ -79,6 +79,31 @@ describe('Edit Receiver Use Case', () => {
       expect(receiverEdited).toEqual(expectedReturn)
     })
 
+    test('Should return the ignore fields with undefined value', async () => {
+      const { sut, getReceiverByIdRepositoryStub, editReceiverRepositoryStub } =
+        makeSut()
+      const receiver = mockReceiverValidadoCPF()
+      jest
+        .spyOn(getReceiverByIdRepositoryStub, 'getReceiverById')
+        .mockReturnValueOnce(Promise.resolve(receiver))
+
+      const id = receiver.id
+      const editReceiverData = mockEditReceiverParamsOnlyEmail()
+      const expectedReturn = {
+        ...receiver,
+        ...editReceiverData,
+        name: undefined,
+      }
+
+      jest
+        .spyOn(editReceiverRepositoryStub, 'edit')
+        // @ts-ignore
+        .mockReturnValueOnce(Promise.resolve(expectedReturn))
+
+      const receiverEdited = await sut.edit(id, editReceiverData)
+      expect(receiverEdited).toEqual(expectedReturn)
+    })
+
     test('Should throw if try edit invalid field for receiver with status VALIDADO', async () => {
       const { sut, getReceiverByIdRepositoryStub } = makeSut()
       const getReceiverByIdSpy = jest
@@ -151,30 +176,3 @@ describe('Edit Receiver Use Case', () => {
     })
   })
 })
-
-//
-// test('Should call IdGenerator', async () => {
-//   const { sut, getReceiverByIdRepositoryStub: idGeneratorStub } = makeSut()
-//   const idGeneratorSpy = jest.spyOn(idGeneratorStub, 'generate')
-//   const editReceiverParams = mockEditReceiverParams()
-//   await sut.edit(editReceiverParams)
-//   expect(idGeneratorSpy).toHaveBeenCalled()
-// })
-//
-// test('Should throw if EditReceiverRepository throws', async () => {
-//   const { sut, editReceiverRepositoryStub } = makeSut()
-//   jest
-//     .spyOn(editReceiverRepositoryStub, 'edit')
-//     .mockImplementationOnce(throwError)
-//   const editReceiverParams = mockEditReceiverParams()
-//   const promise = sut.edit(editReceiverParams)
-//   expect(promise).rejects.toThrow()
-// })
-//
-// test('Should throw if IdGenerator throws', async () => {
-//   const { sut, getReceiverByIdRepositoryStub: idGeneratorStub } = makeSut()
-//   jest.spyOn(idGeneratorStub, 'generate').mockImplementationOnce(throwError)
-//   const editReceiverParams = mockEditReceiverParams()
-//   const promise = sut.edit(editReceiverParams)
-//   expect(promise).rejects.toThrow()
-// })
