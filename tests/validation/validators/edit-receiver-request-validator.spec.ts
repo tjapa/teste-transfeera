@@ -15,6 +15,7 @@ import {
   mockEditReceiverRequestInvalidRegisterId,
   mockEditReceiverRequestInvalidPixKeyTypeWithoutPixKey,
   mockEditReceiverRequestWithoutSomeFields,
+  mockEditReceiverRequestValidForStatusValidado,
 } from '@/tests/presentation/mocks/mocks-edit-receiver-request'
 import { mockEditReceiverRequestInvalidPixKeyWithoutPixKeyType } from '@/tests/presentation/mocks/mocks-edit-receiver-request'
 
@@ -46,6 +47,7 @@ describe('Edit Receiver Request Validator', () => {
   test('Should return a valid editReceiverRequest on sucesss ', () => {
     const sut = makeSut()
     const editReceiverRequests = [
+      mockEditReceiverRequestValidForStatusValidado(),
       mockEditReceiverRequestWithoutSomeFields(),
       mockEditReceiverRequestCPF(),
       mockEditReceiverRequestCNPJ(),
