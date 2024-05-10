@@ -14,7 +14,7 @@ export const pixKeyTypeEnum = pgEnum('pix_key_type', [
 ])
 
 export const receivers = pgTable('receivers', {
-  id: uuid('id').primaryKey().notNull(),
+  id: varchar('id', { length: 255 }).primaryKey().notNull(),
   registerId: varchar('register_id', { length: 255 }).notNull(),
   email: varchar('email', { length: 255 }).notNull(),
   name: varchar('name', { length: 255 }).notNull(),

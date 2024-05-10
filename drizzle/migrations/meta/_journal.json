@@ -15,6 +15,13 @@
       "when": 1715307353761,
       "tag": "0001_talented_the_initiative",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1715352329906,
+      "tag": "0002_magenta_nocturne",
+      "breakpoints": true
     }
   ]
 }

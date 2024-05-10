@@ -1,0 +1,1 @@
+ALTER TABLE "receivers" ALTER COLUMN "id" SET DATA TYPE varchar(255);

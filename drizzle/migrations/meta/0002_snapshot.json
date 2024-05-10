@@ -1,0 +1,99 @@
+{
+  "id": "c5f1fa3d-4d9e-4e37-97ba-c5d85c0b9cf3",
+  "prevId": "64c78f3e-d623-43bc-8283-71365b1b1f60",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "receivers": {
+      "name": "receivers",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "register_id": {
+          "name": "register_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pix_key": {
+          "name": "pix_key",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pix_key_type": {
+          "name": "pix_key_type",
+          "type": "pix_key_type",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "receiver_status",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp(6)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "modified_at": {
+          "name": "modified_at",
+          "type": "timestamp(6)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "pix_key_type": {
+      "name": "pix_key_type",
+      "values": {
+        "CPF": "CPF",
+        "CNPJ": "CNPJ",
+        "EMAIL": "EMAIL",
+        "TELEFONE": "TELEFONE",
+        "CHAVE_ALEATORIA": "CHAVE_ALEATORIA"
+      }
+    },
+    "receiver_status": {
+      "name": "receiver_status",
+      "values": {
+        "RASCUNHO": "RASCUNHO",
+        "VALIDADO": "VALIDADO"
+      }
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
