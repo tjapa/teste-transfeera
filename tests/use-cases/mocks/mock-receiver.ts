@@ -15,8 +15,8 @@ export const mockReceiverRascunhoCPF = (): ReceiverModel => ({
 
 export const mockReceiverRascunhoEmail = (): ReceiverModel => ({
   id: faker.string.uuid(),
-  pixKeyType: 'CPF',
-  pixKey: randexp(/^[0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}$/),
+  pixKeyType: 'EMAIL',
+  pixKey: randexp(/^[a-z0-9+_.-]+@[a-z0-9.-]+$/),
   email: faker.internet.email(),
   name: faker.person.fullName(),
   registerId: randexp(/^[0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2}$/),
