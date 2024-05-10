@@ -13,7 +13,7 @@ import {
 import { InvalidParamsError } from '@/presentation/errors/invalid-params-error'
 import { getInvalidParamsFromTypeBox } from '../helpers/get-invalid-params-from-typebox'
 
-const editReceiverRequestSchema = Type.Composite([
+const editReceiverRequestSchemaWithPix = Type.Composite([
   Type.Object({
     name: Type.Optional(Type.String()),
     email: Type.Optional(emailSchema),
@@ -45,21 +45,38 @@ const editReceiverRequestSchema = Type.Composite([
   ),
 ])
 
+const editReceiverRequestSchemaWithoutPix = Type.Object({
+  name: Type.Optional(Type.String()),
+  email: Type.Optional(emailSchema),
+  register_id: Type.Optional(Type.Union([cpfSchema, cnpjSchema])),
+})
+
 export class EditReceiverRequestValidator
-  implements Validator<EditReceiverRequest>
-{
-  constructor() {}
+  implements Validator<EditReceiverRequest> {
+  constructor() { }
 
   validate(input: any): EditReceiverRequest {
-    try {
-      const output = Value.Encode(editReceiverRequestSchema, input)
-      return output
-    } catch {
-      throw new InvalidParamsError(
-        getInvalidParamsFromTypeBox(
-          Value.Errors(editReceiverRequestSchema, input),
-        ),
-      )
+    let ouput: EditReceiverRequest
+    if (input?.pix_key_type || input?.pix_key) {
+      try {
+        return Value.Encode(editReceiverRequestSchemaWithPix, input)
+      } catch {
+        throw new InvalidParamsError(
+          getInvalidParamsFromTypeBox(
+            Value.Errors(editReceiverRequestSchemaWithPix, input),
+          ),
+        )
+      }
+    } else {
+      try {
+        return Value.Encode(editReceiverRequestSchemaWithoutPix, input)
+      } catch {
+        throw new InvalidParamsError(
+          getInvalidParamsFromTypeBox(
+            Value.Errors(editReceiverRequestSchemaWithoutPix, input),
+          ),
+        )
+      }
     }
   }
 }
