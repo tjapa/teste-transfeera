@@ -1,4 +1,4 @@
-import { ReceiverModel } from '@/use-cases/models/receiver'
+import { EditReceiverModel, ReceiverModel } from '@/use-cases/models/receiver'
 import { CreateReceiverRepository } from '@/repository/protocols/create-receiver-repository'
 import {
   FiltersGetReceivers,
@@ -6,19 +6,22 @@ import {
 } from '@/repository/protocols/get-receivers-repository'
 import { drizzleClient } from './dizzleClient'
 import { receivers } from './schemas'
-import { and, desc, eq, inArray } from 'drizzle-orm'
+import { and, desc, eq, inArray, sql } from 'drizzle-orm'
 import {
   DeleteReceiversRepository,
   DeleteReceiversRepositoryResponse,
 } from '@/repository/protocols/delete-receivers-repository'
 import { GetReceiverByIdRepository } from '@/repository/protocols/get-receiver-by-id-repository'
+import { EditReceiverRepository } from '@/repository/protocols/edit-receiver-repository'
 
 export class ReceiverRepository
   implements
-  CreateReceiverRepository,
-  GetReceiversRepository,
-  DeleteReceiversRepository,
-  GetReceiverByIdRepository {
+    CreateReceiverRepository,
+    GetReceiversRepository,
+    DeleteReceiversRepository,
+    GetReceiverByIdRepository,
+    EditReceiverRepository
+{
   async create(receiver: ReceiverModel): Promise<ReceiverModel> {
     return (
       await drizzleClient.insert(receivers).values(receiver).returning({
@@ -74,5 +77,29 @@ export class ReceiverRepository
       },
       where: eq(receivers.id, id),
     })
+  }
+
+  async edit(
+    id: string,
+    editReceiverData: EditReceiverModel,
+  ): Promise<ReceiverModel> {
+    return (
+      await drizzleClient
+        .update(receivers)
+        .set({
+          ...editReceiverData,
+          modifiedAt: sql`CURRENT_TIMESTAMP`,
+        })
+        .where(and(eq(receivers.id, id)))
+        .returning({
+          id: receivers.id,
+          pixKeyType: receivers.pixKeyType,
+          pixKey: receivers.pixKey,
+          email: receivers.email,
+          name: receivers.name,
+          registerId: receivers.registerId,
+          status: receivers.status,
+        })
+    )[0]
   }
 }
