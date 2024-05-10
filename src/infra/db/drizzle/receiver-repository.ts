@@ -11,13 +11,14 @@ import {
   DeleteReceiversRepository,
   DeleteReceiversRepositoryResponse,
 } from '@/repository/protocols/delete-receivers-repository'
+import { GetReceiverByIdRepository } from '@/repository/protocols/get-receiver-by-id-repository'
 
 export class ReceiverRepository
   implements
-    CreateReceiverRepository,
-    GetReceiversRepository,
-    DeleteReceiversRepository
-{
+  CreateReceiverRepository,
+  GetReceiversRepository,
+  DeleteReceiversRepository,
+  GetReceiverByIdRepository {
   async create(receiver: ReceiverModel): Promise<ReceiverModel> {
     return (
       await drizzleClient.insert(receivers).values(receiver).returning({
@@ -63,5 +64,15 @@ export class ReceiverRepository
       .delete(receivers)
       .where(inArray(receivers.id, receiverIds))
       .returning({ deletedReceiverId: receivers.id })
+  }
+
+  async getReceiverById(id: string): Promise<ReceiverModel | undefined> {
+    return await drizzleClient.query.receivers.findFirst({
+      columns: {
+        createdAt: false,
+        modifiedAt: false,
+      },
+      where: eq(receivers.id, id),
+    })
   }
 }
