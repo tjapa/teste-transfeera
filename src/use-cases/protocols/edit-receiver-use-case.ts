@@ -7,4 +7,4 @@ export interface EditReceiverUseCase {
   ) => Promise<ReceiverModel>
 }
 
-export type EditReceiverParams = Omit<ReceiverModel, 'id' | 'status'>
+export type EditReceiverParams = Partial<Omit<ReceiverModel, 'id' | 'status'>>
