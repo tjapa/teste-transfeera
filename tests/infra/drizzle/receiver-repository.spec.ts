@@ -218,4 +218,25 @@ describe('Receiver Repository', () => {
       expect(receiversInDb).toHaveLength(10)
     })
   })
+
+  describe('getReceiverById()', () => {
+    test('Should delete the receivers from db and return a list with deleted receivers', async () => {
+      const sut = makeSut()
+      const receiversCreated = []
+      for (let i = 0; i < 10; i++) {
+        receiversCreated.push(mockReceiverRascunhoCPF())
+      }
+      await drizzleClient.insert(receivers).values(receiversCreated)
+      const expectedResponse = receiversCreated[3]
+
+      const receiver = await sut.getReceiverById(receiversCreated[3].id)
+      expect(receiver).toEqual(expectedResponse)
+    })
+
+    test('Should return undefined if receiver not found', async () => {
+      const sut = makeSut()
+      const receiver = await sut.getReceiverById('any_id')
+      expect(receiver).toBeUndefined()
+    })
+  })
 })
