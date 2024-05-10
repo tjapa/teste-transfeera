@@ -13,7 +13,15 @@ export class ReceiverRepository
 {
   async create(receiver: ReceiverModel): Promise<ReceiverModel> {
     return (
-      await drizzleClient.insert(receivers).values(receiver).returning()
+      await drizzleClient.insert(receivers).values(receiver).returning({
+        id: receivers.id,
+        pixKeyType: receivers.pixKeyType,
+        pixKey: receivers.pixKey,
+        email: receivers.email,
+        name: receivers.name,
+        registerId: receivers.registerId,
+        status: receivers.status,
+      })
     )[0]
   }
 

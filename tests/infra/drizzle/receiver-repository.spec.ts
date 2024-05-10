@@ -32,8 +32,10 @@ describe('Receiver Repository', () => {
       const sut = makeSut()
       const receiver = mockReceiverRascunhoCPF()
       await sut.create(receiver)
-      const receiversInDb = await drizzleClient.query.receivers.findMany()
-      expect(receiversInDb.length).toBe(1)
+      const receiversInDb = await drizzleClient.query.receivers.findMany({
+        columns: { createdAt: false, modifiedAt: false },
+      })
+      expect(receiversInDb).toHaveLength(1)
       expect(receiversInDb[0]).toEqual(receiver)
     })
   })
