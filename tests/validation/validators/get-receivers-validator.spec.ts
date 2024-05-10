@@ -34,4 +34,10 @@ describe('Get Receivers Request Validator', () => {
     const validGetReceiversRequest = sut.validate(getReceiversRequest)
     expect(validGetReceiversRequest).toEqual(getReceiversRequest)
   })
+
+  test('Should filter and all fields be optional', async () => {
+    const sut = makeSut()
+    expect(sut.validate(undefined)).toEqual(undefined)
+    expect(sut.validate({})).toEqual({})
+  })
 })
