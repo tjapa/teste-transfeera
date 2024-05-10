@@ -28,12 +28,10 @@ export class EditReceiver implements EditReceiverUseCase {
       const editReceiverDataKeys = Object.keys(editReceiverData).filter((key) =>
         Boolean(editReceiverData[key as keyof typeof editReceiverData]),
       )
-      console.log({ editReceiverData })
       const validFields = ['email']
       const invalidFields = editReceiverDataKeys.filter(
         (key) => !validFields.includes(key),
       )
-      console.log({ invalidFields })
       if (invalidFields.length > 0) {
         throw new InvalidReceiverEditDataFieldsError(invalidFields)
       }
