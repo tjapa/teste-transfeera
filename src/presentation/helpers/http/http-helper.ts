@@ -14,3 +14,8 @@ export const serverError = (): HttpResponse => ({
   statusCode: 500,
   body: 'Internal server error',
 })
+
+export const notFound = (error: Error): HttpResponse => ({
+  statusCode: 404,
+  body: error.message,
+})
