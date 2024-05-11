@@ -29,7 +29,7 @@ npm run db:generate-migrations
 npm run db:migrate
 ```
 
-## Excutando Testes
+## Executando os Testes
 
 ### Todos os testes
 
@@ -41,7 +41,7 @@ npm run db:migrate
 npm run test
 ```
 
-### Apenas testes unitários
+### Apenas testes unitários no modo watch
 
 ```sh
 docker compose -f docker-compose-test.yml
@@ -51,7 +51,7 @@ npm run db:migrate
 npm run test:unit
 ```
 
-### Apenas testes de integração
+### Apenas testes de integração no modo watch
 
 ```sh
 docker compose -f docker-compose-test.yml up
@@ -70,96 +70,100 @@ Há um arquivo com a coleção do Postman no diretório utils.
 #### GET /api/receivers
 
 URL:
+
 ```
 http://localhost:3000/api/receivers?offset=10&pix_key_type=CPF&status=VALIDADO
 ```
 
 Resposta:
+
 ```json
 [
-    {
-        "id": "0a0aa45e-daed-4bbf-895c-57f3042bcbfb",
-        "register_id": "014.777.044-06",
-        "email": "Lucius.Stamm@yahoo.com",
-        "name": "Jon Zemlak",
-        "pix_key": "904835218-80",
-        "pix_key_type": "CPF",
-        "status": "VALIDADO"
-    },
-    {
-        "id": "cccad33b-62a5-4241-9383-0af846210224",
-        "register_id": "438.726.78774",
-        "email": "Mike95@yahoo.com",
-        "name": "Lauren Ebert-Murray",
-        "pix_key": "939777.68205",
-        "pix_key_type": "CPF",
-        "status": "VALIDADO"
-    }
+  {
+    "id": "0a0aa45e-daed-4bbf-895c-57f3042bcbfb",
+    "register_id": "014.777.044-06",
+    "email": "Lucius.Stamm@yahoo.com",
+    "name": "Jon Zemlak",
+    "pix_key": "904835218-80",
+    "pix_key_type": "CPF",
+    "status": "VALIDADO"
+  },
+  {
+    "id": "cccad33b-62a5-4241-9383-0af846210224",
+    "register_id": "438.726.78774",
+    "email": "Mike95@yahoo.com",
+    "name": "Lauren Ebert-Murray",
+    "pix_key": "939777.68205",
+    "pix_key_type": "CPF",
+    "status": "VALIDADO"
+  }
 ]
 ```
 
 #### POST /api/receivers
 
 Body:
+
 ```json
 {
-    "name": "oi",
-    "email": "NICOTAMALU@GMAIL.COM",
-    "register_id": "123456789-00",
-    "pix_key_type": "CPF",
-    "pix_key": "123456789-00"
+  "name": "oi",
+  "email": "NICOTAMALU@GMAIL.COM",
+  "register_id": "123456789-00",
+  "pix_key_type": "CPF",
+  "pix_key": "123456789-00"
 }
 ```
 
 Resposta:
+
 ```json
 {
-    "id": "2c78fd03-5db1-4f47-9806-7b4d82073867",
-    "pix_key_type": "CPF",
-    "pix_key": "123456789-00",
-    "email": "NICOTAMALU@GMAIL.COM",
-    "name": "oi",
-    "register_id": "123456789-00",
-    "status": "RASCUNHO"
+  "id": "2c78fd03-5db1-4f47-9806-7b4d82073867",
+  "pix_key_type": "CPF",
+  "pix_key": "123456789-00",
+  "email": "NICOTAMALU@GMAIL.COM",
+  "name": "oi",
+  "register_id": "123456789-00",
+  "status": "RASCUNHO"
 }
 ```
 
 #### DELETE /api/receivers
 
 Body:
+
 ```json
 ["cccad33b-62a5-4241-9383-0af846210224", "invalid_id"]
 ```
 
 Resposta:
+
 ```json
 {
-    "deleted_receiver_ids": [
-        "cccad33b-62a5-4241-9383-0af846210224"
-    ],
-    "not_found_receiver_ids": [
-        "invalid_id"
-    ]
+  "deleted_receiver_ids": ["cccad33b-62a5-4241-9383-0af846210224"],
+  "not_found_receiver_ids": ["invalid_id"]
 }
 ```
 
 #### PATCH /api/receivers/:id
 
 URL:
+
 ```
 http://localhost:3000/api/receivers/0a0aa45e-daed-4bbf-895c-57f3042bcbfb
 ```
 
 Resposta:
+
 ```json
 {
-    "id": "0a0aa45e-daed-4bbf-895c-57f3042bcbfb",
-    "pix_key_type": "CPF",
-    "pix_key": "904835218-80",
-    "email": "NICOTAMALU@GMAIL.COM",
-    "name": "Jon Zemlak",
-    "register_id": "014.777.044-06",
-    "status": "VALIDADO"
+  "id": "0a0aa45e-daed-4bbf-895c-57f3042bcbfb",
+  "pix_key_type": "CPF",
+  "pix_key": "904835218-80",
+  "email": "NICOTAMALU@GMAIL.COM",
+  "name": "Jon Zemlak",
+  "register_id": "014.777.044-06",
+  "status": "VALIDADO"
 }
 ```
 
@@ -169,10 +173,11 @@ Resposta:
 - Na criação dos favorecidos, optei por também deixar como obrigatório os campos de nome e CPF/CNPJ, sendo necessário que esse último atenda a Regex da validação;
 - No caso da edição de informações relacionadas ao PIX, ambos os campos (chave PIX e tipo da chave) devem ser passados;
 - Faltou adicionar logs e melhorar as respostas de erro.
-- Acabei implementando a validação da camada de apresentação, mas no decorrer do desenvolvimento, percebi que deveria ter criado entidades para os beneficiários, CPF, PIX, etc, e esses entidades deviam conter as regras de negócio, porém estava ficando sem tempo para fazer essa alteração.
-Deixo aqui pseudo-códigos com exemplos de como o código ficaria:
+- Acabei implementando a validação da camada de apresentação, mas no decorrer do desenvolvimento, percebi que deveria ter criado uma camada de entidades com os recebedores, CPF, PIX, etc, e essas entidades deveriam conter as regras de negócio, porém estava ficando sem tempo para fazer essa alteração.
+  Deixo aqui pseudo-códigos com exemplos de como o código ficaria:
 
 // src/entities/cpf.ts
+
 ```ts
 class CPF {
   private readonly cpf: string
@@ -199,6 +204,7 @@ class CPF {
 ```
 
 // src/entities/receiver.ts
+
 ```ts
 class Receiver {
   private readonly cpf: CPF
@@ -217,7 +223,7 @@ class Receiver {
     ...
   }
 
-  // algo assim que lançasse um erro ou retornasse algo tipo de erro, caso se nao pudesse ser editado
+  // algo assim que lançasse um erro ou retornasse algo tipo de erro, caso não pudesse ser editado
   canBeEdited(editReceiverData): Bool {
     ...
   }
@@ -225,18 +231,19 @@ class Receiver {
 ```
 
 // src/use-cases/implementations/edit-receiver-use-case.ts
+
 ```ts
 export class EditReceiver implements EditReceiverUseCase {
-
   async edit(
     id: string,
     editReceiverData: EditReceiverParams,
   ): Promise<ReceiverModel> {
-    const receiverData = await this.getReceiverByIdRepository.getReceiverById(id)
+    const receiverData =
+      await this.getReceiverByIdRepository.getReceiverById(id)
 
     const receiver = Receiver.create(receiverData)
 
-    receiver.canBeEdited(editReceiverData)    
+    receiver.canBeEdited(editReceiverData)
 
     const receiverEdited = await this.editReceiverByIdRepository.edit(
       id,
