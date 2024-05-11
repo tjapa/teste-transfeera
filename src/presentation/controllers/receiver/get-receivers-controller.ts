@@ -48,6 +48,7 @@ export class GetReceiversController implements Controller {
 
       return ok(receiversFormatted)
     } catch (error) {
+      console.error(error)
       return serverError()
     }
   }

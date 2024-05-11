@@ -39,6 +39,7 @@ export class DeleteReceiversController implements Controller {
 
       return ok(deletedReceiversFormatted)
     } catch (error) {
+      console.error(error)
       return serverError()
     }
   }

@@ -45,6 +45,7 @@
     "express": "^4.19.2",
     "fast-case": "^1.7.0",
     "module-alias": "^2.2.3",
+    "pino-http": "^10.1.0",
     "postgres": "^3.4.4",
     "type-fest": "^4.18.2",
     "typescript": "^5.4.5",

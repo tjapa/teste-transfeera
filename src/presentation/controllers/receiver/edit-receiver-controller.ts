@@ -24,7 +24,7 @@ export class EditReceiverController implements Controller {
   constructor(
     private readonly editReceiver: EditReceiverUseCase,
     private readonly validator: Validator<EditReceiverRequest>,
-  ) { }
+  ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     let editReceiverRequest: EditReceiverRequest
@@ -59,6 +59,7 @@ export class EditReceiverController implements Controller {
       } else if (error instanceof ReceiverNotFoundError) {
         return notFound(error)
       }
+      console.error(error)
       return serverError()
     }
   }
