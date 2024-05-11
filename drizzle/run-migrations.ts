@@ -11,5 +11,6 @@ export async function runMigrations(
   const sql = postgres(postgresDbUrl, { max: 1, ...postgresConfig })
   const db = drizzle(sql, drizzleConfig)
   await migrate(db, { migrationsFolder: 'drizzle/migrations' })
+  await sql.file('drizzle/custom-sql/insert-receivers.sql')
   await sql.end()
 }
