@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "dada16ce-29b6-4263-8924-8249f3c3356c",
+		"name": "Teste Transfeera",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12451777"
+	},
+	"item": [
+		{
+			"name": "Receivers",
+			"item": [
+				{
+					"name": "Create Receiver",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"oi\",\n    \"email\": \"NICOTAMALU@GMAIL.COM\",\n    \"register_id\": \"123456789-00\",\n    \"pix_key_type\": \"CPF\",\n    \"pix_key\": \"123456789-00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/receivers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"receivers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Receivers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/receivers?offset=2&status=VALIDADO",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"receivers"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "2"
+								},
+								{
+									"key": "pix_key_type",
+									"value": "CPF",
+									"disabled": true
+								},
+								{
+									"key": "pix_key",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "VALIDADO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Receiver",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pix_key_type\": \"CPF\",\n    \"pix_key\": \"087.724.389-17\",\n    \"email\": \"NICOTAMALU@GMAIL.COM\",\n    \"name\": \"oi\",\n    \"register_id\": \"087.724.389-16\",\n    \"status\": \"RASCUNHO\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/receivers/0a0aa45e-daed-4bbf-895c-57f3042bcbfb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"receivers",
+								"0a0aa45e-daed-4bbf-895c-57f3042bcbfb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Receivers",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"cccad33b-62a5-4241-9383-0af846210224\", \"invalid_id\"]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/receivers/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"receivers",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
