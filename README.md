@@ -44,7 +44,7 @@ npm run test
 ### Apenas testes unitários no modo watch
 
 ```sh
-docker compose -f docker-compose-test.yml
+docker compose -f docker-compose-test.yml up
 npm install
 npm run db:generate-migrations
 npm run db:migrate
