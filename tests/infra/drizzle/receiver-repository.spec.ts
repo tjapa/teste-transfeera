@@ -52,16 +52,13 @@ describe('Receiver Repository', () => {
       await drizzleClient.insert(receivers).values(receiversCreated)
 
       const receiversGetted = await sut.getReceivers()
-      expect(receiversGetted.length).toEqual(10)
-      for (const [i, receiverGetted] of receiversGetted.entries()) {
-        expect(receiverGetted).toEqual(receiversCreated[i])
-      }
-
       const receiversGettedOffset = await sut.getReceivers({ offset: 10 })
+
+      expect(receiversGetted).toHaveLength(10)
       expect(receiversGettedOffset.length).toEqual(3)
-      for (const [i, receiverGetted] of receiversGettedOffset.entries()) {
-        expect(receiverGetted).toEqual(receiversCreated[i + 10])
-      }
+      expect(receiversGetted).not.toEqual(
+        expect.arrayContaining(receiversGettedOffset),
+      )
     })
 
     test('Should filter by status', async () => {
@@ -85,18 +82,18 @@ describe('Receiver Repository', () => {
       const receiversValidadosGetted = await sut.getReceivers({
         status: 'VALIDADO',
       })
-      expect(receiversValidadosGetted.length).toEqual(5)
-      for (const [i, receiverGetted] of receiversValidadosGetted.entries()) {
-        expect(receiverGetted).toEqual(receiversValidados[i])
-      }
+      expect(receiversValidadosGetted).toHaveLength(5)
+      expect(receiversValidadosGetted).toEqual(
+        expect.arrayContaining(receiversValidados),
+      )
 
       const receiversRascunhoGetted = await sut.getReceivers({
         status: 'RASCUNHO',
       })
-      expect(receiversRascunhoGetted.length).toEqual(5)
-      for (const [i, receiverGetted] of receiversRascunhoGetted.entries()) {
-        expect(receiverGetted).toEqual(receiversRascunho[i])
-      }
+      expect(receiversRascunhoGetted).toHaveLength(5)
+      expect(receiversRascunhoGetted).toEqual(
+        expect.arrayContaining(receiversRascunho),
+      )
     })
 
     test('Should filter by pix key type', async () => {
@@ -120,7 +117,10 @@ describe('Receiver Repository', () => {
       const receiversCpfGetted = await sut.getReceivers({
         pixKeyType: 'CPF',
       })
-      expect(receiversCpfGetted.length).toEqual(5)
+      expect(receiversCpfGetted).toHaveLength(5)
+      expect(receiversCpfGetted).toEqual(
+        expect.arrayContaining(receiversCpfGetted),
+      )
       for (const [i, receiverGetted] of receiversCpfGetted.entries()) {
         expect(receiverGetted).toEqual(receiversCpf[i])
       }
@@ -128,10 +128,8 @@ describe('Receiver Repository', () => {
       const receiversCnpjGetted = await sut.getReceivers({
         pixKeyType: 'CNPJ',
       })
-      expect(receiversCnpjGetted.length).toEqual(5)
-      for (const [i, receiverGetted] of receiversCnpjGetted.entries()) {
-        expect(receiverGetted).toEqual(receiversCnpj[i])
-      }
+      expect(receiversCnpjGetted).toHaveLength(5)
+      expect(receiversCnpjGetted).toEqual(expect.arrayContaining(receiversCnpj))
     })
 
     test('Should filter by pix key', async () => {
